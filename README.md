@@ -1,6 +1,6 @@
 # hash-table-tree
 
-This is a data structure that came to my mind when I was thinking about enhancing data access speed on databases.
+This is a data structure that I created when I was thinking about enhancing data access speed on databases.
 
 It implements a hash table on database pages.
 
@@ -29,9 +29,11 @@ The new hash nonce must be different than the previous (in the path up to the ro
 
 ## Performance
 
-The performance gain (at least on reads) comes from the amount of pointers on each index page. We can have nearly 1021 pointers in a 4kB page.
+The performance gain (at least on reads) comes from the amount of pointers on each index page and the consequence of requiring less index pages to be loaded (less disk I/O) when searching for a key.
 
-A common B-tree with a 4 byte key has half that number of pointers. And with an 8 bytes key the number of pointers is 1/4.
+We can have nearly 1021 pointers in a hash-table-tree 4kB page.
+
+A common B-tree with a 4 byte key has half that number of pointers. And with an 8 bytes key the number of pointers is 1/3.
 
 ## Limitations
 
