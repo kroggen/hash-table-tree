@@ -16,16 +16,20 @@ The keys and values are stored on the data pages with a data length before each.
 When there is no more free space on a data page to store a new or updated key/value pair we:
 
 1. allocate a new index page
-2. choose a new hash nonce
-3. reshash all the keys in this page with this new nonce and store the pairs on new pages
+2. choose a new hash salt and store it on the index page
+3. reshash all the keys in this data page with this new salt and store the pairs on new data pages
 
 ![img2](images/img2.png)
 
 So we don't need to rehash the entire database.
 
-## Requirement
+By using a different salt than in the previous index pages the hash function will generate different hashes for the same keys, so the keys on that new index page will be spreaded on separate pages.
 
-The new hash nonce must be different than the previous (in the path up to the root page) so the keys on that new index will be spreaded on separate pages.
+This action of adding new index pages is limited by the total possible unique salts. Each salt is stored in the index page.
+If it uses 1 byte we have 256 possible different salts for each path. This means the db can store at least nearly 1021^256 keys.
+This number is way higher if we use 2 bytes to store the salt.
+
+Note that the same salt can be used in other paths and it must be unique only in the same path up to the root page.
 
 ## Performance
 
