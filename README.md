@@ -1,6 +1,6 @@
 # hash-table-tree
 
-This is a data structure that I created when I was thinking about enhancing data access speed on databases.
+It is a data structure for fast disk-based unsorted key-value databases.
 
 It implements a hash table on database pages.
 
@@ -43,12 +43,8 @@ A common B-tree with a 4 byte key has half that number of pointers. And with an 
 
 As in any hash table, it only supports unsorted data.
 
+It uses A LOT of disk space if the key+value size is way lower than 4kB. It is as a trade-off for performance. But it is really good when used to store data nearly to 4090 bytes (key + value + length prefixes).
+
 ## About the Code
 
 This code is just a proof-of-concept, it does not implement transactions and it is not safe (yet).
-
-## Contact
-
-Bernardo Ramos, Gensis Sistemas
-
-contact 4T litereplica D0T io
