@@ -43,7 +43,12 @@ A common B-tree with a 4 byte key has half that number of pointers. And with an 
 
 As in any hash table, it only supports unsorted data.
 
-It uses A LOT of disk space if the key+value size is way lower than 4kB. It is as a trade-off for performance. But it is really good when used to store data nearly to 4090 bytes (key + value + length prefixes).
+The above format (one entire disk page for each data page, and value stored together with keys) uses A LOT of disk space if the key+value size is way lower than 4kB. It is as a trade-off for performance. But it is really good when used to store data up to 4090 bytes (key + value + length prefixes).
+
+This is fixed by storing many data sub-pages on each disk page, with the costs of:
+
+1. Storing the pointer to page (4 bytes) + sub-page id (1 byte) on the index page (5 bytes per slot)
+2. Modifying the pointer on the parent page when the sub-page is moved to another page (the original concept always keep the pointers to child unchanged)
 
 ## Implementations
 
