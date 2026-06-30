@@ -45,6 +45,6 @@ As in any hash table, it only supports unsorted data.
 
 It uses A LOT of disk space if the key+value size is way lower than 4kB. It is as a trade-off for performance. But it is really good when used to store data nearly to 4090 bytes (key + value + length prefixes).
 
-## About the Code
+## Implementations
 
-This code is just a proof-of-concept, it does not implement transactions and it is not safe (yet).
+A slightly modified version of this concept is implemented on [HashTableDB](https://github.com/aergoio/hashtabledb)
